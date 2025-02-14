@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Create New Book</h1>
+<form method="post" action="/admin/book/create">
+    <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" name="title" id="title" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="genre" class="form-label">Genre</label>
+        <select name="genre" id="genre" class="form-select" required>
+            {% for g in ["Fiction", "Non-Fiction", "Science", "History"] %}
+                <option value="{{ g }}">{{ g }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="published_year" class="form-label">Published Year</label>
+        <input type="number" name="published_year" id="published_year" class="form-control" min="1800" max="{{ current_year }}" required>
+        <!-- можно добавить подсказку: current year = {{ current_year }} -->
+    </div>
+    <div class="mb-3">
+        <label for="authors" class="form-label">Authors (comma separated)</label>
+        <input type="text" name="authors" id="authors" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-success">Create Book</button>
+</form>
+{% endblock %}

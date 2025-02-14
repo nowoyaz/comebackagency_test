@@ -1,0 +1,14 @@
+[
+  {
+    "title": "JSON Book",
+    "genre": "Non-Fiction",
+    "published_year": 2015,
+    "authors": ["Author JSON1", "Author JSON2"]
+  },
+  {
+    "title": "JSON Book2",
+    "genre": "History",
+    "published_year": 2020,
+    "authors": ["Author JSON3"]
+  }
+]

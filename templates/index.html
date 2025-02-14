@@ -1,0 +1,53 @@
+
+{% extends "base.html" %}
+{% block content %}
+<h1>Books</h1>
+
+{% if token %}
+<div class="alert alert-info">
+    <strong>Your JWT Token (admin):</strong>
+    <pre>{{ token }}</pre>
+</div>
+{% endif %}
+
+<!-- Таблица с книгами и пагинация -->
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>
+                <a href="/?sort_by=title&order={{ 'desc' if sort_by == 'title' and order=='asc' else 'asc' }}">Title</a>
+            </th>
+            <th>
+                <a href="/?sort_by=published_year&order={{ 'desc' if sort_by == 'published_year' and order=='asc' else 'asc' }}">Published Year</a>
+            </th>
+            <th>Genre</th>
+            <th>Authors</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for book in books %}
+        <tr>
+            <td>{{ book.id }}</td>
+            <td>{{ book.title }}</td>
+            <td>{{ book.published_year }}</td>
+            <td>{{ book.genre }}</td>
+            <td>
+                {% for author in book.authors %}
+                    {{ author.name }}{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<nav>
+  <ul class="pagination">
+    {% for p in range(1, total_pages + 1) %}
+      <li class="page-item {% if p == page %}active{% endif %}">
+        <a class="page-link" href="/?page={{ p }}{% if sort_by %}&sort_by={{ sort_by }}&order={{ order }}{% endif %}">{{ p }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+</nav>
+{% endblock %}
